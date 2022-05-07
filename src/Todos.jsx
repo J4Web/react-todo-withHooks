@@ -6,20 +6,23 @@ import {Toolbar} from '@mui/material';
 import {Grid} from '@mui/material';
 import TodoList from './TodoList';
 import FormWithHooks from './FormWithHooks'
+import { v4 as uuidv4 } from 'uuid';
 
 function Todos() {
-    const initiallyTodos =[
-        {id:1, title:"Complete my todo app", completed:false},
-        {id:2, title:"Tree Day complete Tree then Binary Tree", completed:false},
-        {id:3, title:"Do a little bit of web 3 stuff", completed:false},
+    const items=window.localStorage.getItem('todos');
+    const initialTodos=items.length!==0?JSON.parse(items):[];
+    // const initialTodos =[
+    //     {id:1, title:"Complete my todo app", completed:false},
+    //     {id:2, title:"Tree Day complete Tree then Binary Tree", completed:false},
+    //     {id:3, title:"Do a little bit of web 3 stuff", completed:false},
 
     
-    ]
+    // ]
 
-    const [todos,setTodos]=useState(initiallyTodos);
+    const [todos,setTodos]=useState(initialTodos);
 
    const  addTodo=newTodo=>{
-        setTodos([...todos,{id:4, title:newTodo,completed:true}])
+        setTodos([...todos,{id:uuidv4(), title:newTodo,completed:false}])
     }
     const deleteTodo=delTodoId=>{
         setTodos(todos.filter(todo=>todo.id !== delTodoId))
@@ -34,8 +37,12 @@ function Todos() {
         const updateTodo= todos.map(todo=>todo.id===todoId? {...todo, title: newTask} : todo)
         setTodos(updateTodo)
     }
+
+    useEffect(()=>{
+        window.localStorage.setItem('todos',JSON.stringify(todos))
+    })
 return (
-    <Paper style={{
+    <Paper style={{ 
         padding:"0",
         margin: "0",
         height: "100vh",

@@ -8,27 +8,27 @@ import {ListItemText} from '@mui/material'
 import TodoItem from './TodoItem'
 function TodoList({todos,delTodo,toggleTodo,editTodo}) {
     
-  return (
-    <div>
+ if(todos.length) { return (
     <Paper>
 <List>
        {
-todos.map((todo,i) => 
-<>
-<TodoItem task={todo.title} key={todo.id} id={todo.id} completed={todo.completed}
+todos?.map((todo,i) => 
+<div key={i}>
+<TodoItem task={todo.title} id={todo.id} completed={todo.completed}
 delTodo={delTodo}
 toggleTodo={toggleTodo}
 editTodo={editTodo}
 
 />
 {i < todos.length-1 && <Divider/>}
-</>
+</div>
 )
         }
 </List>
     </Paper>
-    </div>
   )
+}
+return <> </>
 }
 
 export default TodoList
