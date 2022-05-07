@@ -5,6 +5,7 @@ import AppBar from '@mui/material/AppBar';
 import {Toolbar} from '@mui/material';
 import {Grid} from '@mui/material';
 import TodoList from './TodoList';
+import FormWithHooks from './FormWithHooks'
 
 function Todos() {
     const initiallyTodos =[
@@ -18,7 +19,16 @@ function Todos() {
     const [todos,setTodos]=useState(initiallyTodos);
 
    const  addTodo=newTodo=>{
-        setTodos([...todos,{id:4, title:newTodo,completed:false}])
+        setTodos([...todos,{id:4, title:newTodo,completed:true}])
+    }
+    const deleteTodo=delTodoId=>{
+        setTodos(todos.filter(todo=>todo.id !== delTodoId))
+
+    }
+    const toggleTodo=todoId=>{
+       const updateTodo= todos.map(todo=>todo.id===todoId? {...todo,completed: !todo.completed}: todo
+        )
+        setTodos(updateTodo) 
     }
 return (
     <Paper style={{
@@ -32,7 +42,14 @@ return (
             <Typography color="inherit">ToDos with Hooks</Typography>
         </Toolbar>
     </AppBar>
-        <TodoList todos={todos} addTodo={addTodo}/>
+    <Grid container   style={{alignItems: "center",justifyContent: "center",marginTop: "1rem"}} >
+<Grid item xs={11} md={8} lg={4}>
+<FormWithHooks addTodo={addTodo}/>
+    <TodoList todos={todos} delTodo={deleteTodo} toggleTodo={toggleTodo}/>
+    </Grid>
+
+    </Grid>
+            
     </Paper>
 )
 }

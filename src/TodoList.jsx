@@ -4,20 +4,22 @@ import {List} from '@mui/material'
 import {Divider} from '@mui/material'
 import {ListItem} from '@mui/material'
 import {ListItemText} from '@mui/material'
-import FormWithHooks from "./FormWithHooks"
-function TodoList(props) {
-    const {todos}=props;
+
+import TodoItem from './TodoItem'
+function TodoList({todos,delTodo,toggleTodo}) {
+    
   return (
     <div>
-<FormWithHooks addTodo={props.addTodo}/>
     <Paper>
 <List>
        {
 todos.map(todo => 
 <>
-<ListItemText>
-    {todo.title}
-</ListItemText>
+<TodoItem task={todo.title} key={todo.id} id={todo.id} completed={todo.completed}
+delTodo={delTodo}
+toggleTodo={toggleTodo}
+
+/>
 <Divider/>
 </>
 )
