@@ -6,21 +6,22 @@ import {ListItem} from '@mui/material'
 import {ListItemText} from '@mui/material'
 
 import TodoItem from './TodoItem'
-function TodoList({todos,delTodo,toggleTodo}) {
+function TodoList({todos,delTodo,toggleTodo,editTodo}) {
     
   return (
     <div>
     <Paper>
 <List>
        {
-todos.map(todo => 
+todos.map((todo,i) => 
 <>
 <TodoItem task={todo.title} key={todo.id} id={todo.id} completed={todo.completed}
 delTodo={delTodo}
 toggleTodo={toggleTodo}
+editTodo={editTodo}
 
 />
-<Divider/>
+{i < todos.length-1 && <Divider/>}
 </>
 )
         }

@@ -25,10 +25,14 @@ function Todos() {
         setTodos(todos.filter(todo=>todo.id !== delTodoId))
 
     }
-    const toggleTodo=todoId=>{
+    const toggleTodo=(todoId)=>{
        const updateTodo= todos.map(todo=>todo.id===todoId? {...todo,completed: !todo.completed}: todo
         )
         setTodos(updateTodo) 
+    }
+    const editTodo=(todoId,newTask)=>{
+        const updateTodo= todos.map(todo=>todo.id===todoId? {...todo, title: newTask} : todo)
+        setTodos(updateTodo)
     }
 return (
     <Paper style={{
@@ -45,7 +49,7 @@ return (
     <Grid container   style={{alignItems: "center",justifyContent: "center",marginTop: "1rem"}} >
 <Grid item xs={11} md={8} lg={4}>
 <FormWithHooks addTodo={addTodo}/>
-    <TodoList todos={todos} delTodo={deleteTodo} toggleTodo={toggleTodo}/>
+    <TodoList todos={todos} delTodo={deleteTodo} toggleTodo={toggleTodo} editTodo={editTodo}/>
     </Grid>
 
     </Grid>
